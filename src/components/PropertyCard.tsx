@@ -21,23 +21,27 @@ const PropertyCard = ({
   location, 
   price, 
   rating, 
-  images, 
+  images = [], // Default to empty array
   isFavorite = false,
   hostType = "Guest favourite"
 }: PropertyCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(isFavorite);
 
+  // Fallback image if no images provided
+  const defaultImage = "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const propertyImages = images.length > 0 ? images : [defaultImage];
+
   const nextImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    setCurrentImageIndex((prev) => (prev + 1) % propertyImages.length);
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImageIndex((prev) => (prev - 1 + propertyImages.length) % propertyImages.length);
   };
 
   const toggleFavorite = (e: React.MouseEvent) => {
@@ -53,7 +57,7 @@ const PropertyCard = ({
           {/* Image Carousel */}
           <div className="relative h-64 rounded-xl overflow-hidden">
             <img
-              src={images[currentImageIndex]}
+              src={propertyImages[currentImageIndex]}
               alt={title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
@@ -76,7 +80,7 @@ const PropertyCard = ({
             </Button>
 
             {/* Navigation Arrows */}
-            {images.length > 1 && (
+            {propertyImages.length > 1 && (
               <>
                 <Button
                   variant="ghost"
@@ -98,9 +102,9 @@ const PropertyCard = ({
             )}
 
             {/* Image Indicators */}
-            {images.length > 1 && (
+            {propertyImages.length > 1 && (
               <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                {images.map((_, index) => (
+                {propertyImages.map((_, index) => (
                   <div
                     key={index}
                     className={`w-1.5 h-1.5 rounded-full ${
