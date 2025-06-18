@@ -1,14 +1,23 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, MapPin, Calendar, Users } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSearch } from '@/hooks/useSearch';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
   const { searchQuery, setSearchQuery } = useSearch();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [checkInDate, setCheckInDate] = useState<Date>();
+  const [checkOutDate, setCheckOutDate] = useState<Date>();
+  const [guestCount, setGuestCount] = useState(1);
+  const [showGuestSelector, setShowGuestSelector] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const guestRef = useRef<HTMLDivElement>(null);
 
   const popularDestinations = [
     'Mumbai, Maharashtra',
@@ -27,6 +36,9 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
+      }
+      if (guestRef.current && !guestRef.current.contains(event.target as Node)) {
+        setShowGuestSelector(false);
       }
     };
 
@@ -55,12 +67,22 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
   const handleSearch = () => {
     console.log('Searching for:', searchQuery);
+    console.log('Check-in:', checkInDate);
+    console.log('Check-out:', checkOutDate);
+    console.log('Guests:', guestCount);
     setShowSuggestions(false);
     // Scroll to property grid
     const propertyGrid = document.getElementById('property-grid');
     if (propertyGrid) {
       propertyGrid.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const adjustGuestCount = (increment: boolean) => {
+    setGuestCount(prev => {
+      const newCount = increment ? prev + 1 : prev - 1;
+      return Math.max(1, Math.min(7, newCount));
+    });
   };
 
   return (
@@ -87,34 +109,71 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
           {/* Check in */}
           <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200">
-            <div className="flex items-center space-x-3">
-              <Calendar className="h-5 w-5 text-gray-400" />
-              <div>
-                <div className="text-xs font-semibold text-gray-800">Check in</div>
-                <div className="text-sm text-gray-400">Add dates</div>
-              </div>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="flex items-center space-x-3 cursor-pointer">
+                  <Calendar className="h-5 w-5 text-gray-400" />
+                  <div>
+                    <div className="text-xs font-semibold text-gray-800">Check in</div>
+                    <div className="text-sm text-gray-700">
+                      {checkInDate ? format(checkInDate, "MMM dd") : "Add dates"}
+                    </div>
+                  </div>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CalendarComponent
+                  mode="single"
+                  selected={checkInDate}
+                  onSelect={setCheckInDate}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                  className="pointer-events-auto"
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Check out */}
           <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200">
-            <div className="flex items-center space-x-3">
-              <Calendar className="h-5 w-5 text-gray-400" />
-              <div>
-                <div className="text-xs font-semibold text-gray-800">Check out</div>
-                <div className="text-sm text-gray-400">Add dates</div>
-              </div>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className="flex items-center space-x-3 cursor-pointer">
+                  <Calendar className="h-5 w-5 text-gray-400" />
+                  <div>
+                    <div className="text-xs font-semibold text-gray-800">Check out</div>
+                    <div className="text-sm text-gray-700">
+                      {checkOutDate ? format(checkOutDate, "MMM dd") : "Add dates"}
+                    </div>
+                  </div>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CalendarComponent
+                  mode="single"
+                  selected={checkOutDate}
+                  onSelect={setCheckOutDate}
+                  disabled={(date) => date < new Date() || (checkInDate && date <= checkInDate)}
+                  initialFocus
+                  className="pointer-events-auto"
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           {/* Guests */}
-          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer">
+          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer" ref={guestRef}>
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+              <div 
+                className="flex items-center space-x-3 flex-1"
+                onClick={() => setShowGuestSelector(!showGuestSelector)}
+              >
                 <Users className="h-5 w-5 text-gray-400" />
                 <div>
                   <div className="text-xs font-semibold text-gray-800">Who</div>
-                  <div className="text-sm text-gray-400">Add guests</div>
+                  <div className="text-sm text-gray-700">
+                    {guestCount} {guestCount === 1 ? 'guest' : 'guests'}
+                  </div>
                 </div>
               </div>
               <Button
@@ -124,6 +183,37 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
                 <Search className="h-5 w-5" />
               </Button>
             </div>
+            
+            {/* Guest Selector Dropdown */}
+            {showGuestSelector && (
+              <div className="absolute top-full right-0 bg-white border rounded-lg shadow-lg mt-2 p-4 z-50 w-64">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Guests</span>
+                  <div className="flex items-center space-x-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => adjustGuestCount(false)}
+                      disabled={guestCount <= 1}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="text-sm font-medium w-8 text-center">{guestCount}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => adjustGuestCount(true)}
+                      disabled={guestCount >= 7}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">Maximum 7 guests</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
