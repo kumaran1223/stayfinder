@@ -13,6 +13,7 @@ interface PropertyCardProps {
   images: string[];
   isFavorite?: boolean;
   hostType?: string;
+  onClick?: () => void;
 }
 
 const PropertyCard = ({ 
@@ -21,14 +22,14 @@ const PropertyCard = ({
   location, 
   price, 
   rating, 
-  images = [], // Default to empty array
+  images = [],
   isFavorite = false,
-  hostType = "Guest favourite"
+  hostType = "Guest favourite",
+  onClick
 }: PropertyCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(isFavorite);
 
-  // Fallback image if no images provided
   const defaultImage = "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
   const propertyImages = images.length > 0 ? images : [defaultImage];
 
@@ -51,7 +52,10 @@ const PropertyCard = ({
   };
 
   return (
-    <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 bg-white">
+    <Card 
+      className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 bg-white"
+      onClick={onClick}
+    >
       <CardContent className="p-0">
         <div className="relative">
           {/* Image Carousel */}

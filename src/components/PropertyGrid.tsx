@@ -1,12 +1,14 @@
-
 import React, { useState } from 'react';
 import PropertyCard from './PropertyCard';
+import PropertyDetail from './PropertyDetail';
 import { useSearch } from '@/hooks/useSearch';
 import { Button } from '@/components/ui/button';
 
 const PropertyGrid = () => {
   const { activeCategory, searchQuery } = useSearch();
   const [showAll, setShowAll] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const properties = [
     {
@@ -109,7 +111,6 @@ const PropertyGrid = () => {
       category: "mountains",
       hostType: "Guest favourite"
     },
-    // Adding more trending properties
     {
       id: "11",
       title: "Beach Shack in Varkala",
@@ -170,7 +171,6 @@ const PropertyGrid = () => {
       category: "trending",
       hostType: "Guest favourite"
     },
-    // Adding 34 more properties to reach 50
     {
       id: "17",
       title: "Himalayan Retreat in Shimla",
@@ -524,6 +524,11 @@ const PropertyGrid = () => {
 
   const displayedProperties = showAll ? filteredProperties : filteredProperties.slice(0, 16);
 
+  const handlePropertyClick = (property: any) => {
+    setSelectedProperty(property);
+    setIsDetailOpen(true);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex justify-between items-center mb-8">
@@ -535,7 +540,11 @@ const PropertyGrid = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
         {displayedProperties.map((property) => (
-          <PropertyCard key={property.id} {...property} />
+          <PropertyCard 
+            key={property.id} 
+            {...property} 
+            onClick={() => handlePropertyClick(property)}
+          />
         ))}
       </div>
       
@@ -569,6 +578,13 @@ const PropertyGrid = () => {
           <p className="text-gray-400 text-sm mt-2">Try adjusting your filters or search terms.</p>
         </div>
       )}
+
+      {/* Property Detail Modal */}
+      <PropertyDetail
+        property={selectedProperty}
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+      />
     </div>
   );
 };

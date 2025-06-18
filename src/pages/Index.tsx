@@ -7,6 +7,7 @@ import PropertyGrid from '@/components/PropertyGrid';
 import FeaturedSection from '@/components/FeaturedSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import Footer from '@/components/Footer';
+import Chatbot from '@/components/Chatbot';
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <FeaturedSection />
       <TestimonialSection />
       <Footer />
+      <Chatbot />
     </div>
   );
 };
