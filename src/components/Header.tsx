@@ -4,11 +4,13 @@ import { Menu, User, Heart, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LoginModal } from './LoginModal';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import { useAuth } from '@/hooks/useAuth';
+import AuthButton from './AuthButton';
 
 const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <>
@@ -22,11 +24,6 @@ const Header = () => {
               </div>
               <span className="text-xl font-bold text-gray-900 hidden sm:block">StayFinder</span>
             </Link>
-
-            {/* Desktop Search Bar - Hidden, will show below */}
-            <div className="hidden md:flex flex-1 justify-center mx-8">
-              {/* Search moved below */}
-            </div>
 
             {/* Right Menu */}
             <div className="flex items-center space-x-4">
@@ -45,14 +42,18 @@ const Header = () => {
                   <Heart className="h-5 w-5" />
                 </Button>
                 
-                <Button
-                  variant="ghost"
-                  onClick={() => setIsLoginOpen(true)}
-                  className="flex items-center space-x-2 border border-gray-300 rounded-full px-3 py-2 hover:shadow-md transition-shadow"
-                >
-                  <Menu className="h-4 w-4" />
-                  <User className="h-5 w-5" />
-                </Button>
+                {user ? (
+                  <AuthButton />
+                ) : (
+                  <Button
+                    variant="ghost"
+                    onClick={() => setIsLoginOpen(true)}
+                    className="flex items-center space-x-2 border border-gray-300 rounded-full px-3 py-2 hover:shadow-md transition-shadow"
+                  >
+                    <Menu className="h-4 w-4" />
+                    <User className="h-5 w-5" />
+                  </Button>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
@@ -65,16 +66,6 @@ const Header = () => {
               </Button>
             </div>
           </div>
-
-          {/* Desktop Search Bar - Below navbar */}
-          <div className="hidden md:flex justify-center pb-4">
-            <SearchBar />
-          </div>
-
-          {/* Mobile Search */}
-          <div className="md:hidden pb-4">
-            <SearchBar isMobile />
-          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -84,19 +75,21 @@ const Header = () => {
               <Link to="/host" className="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md">
                 Become a host
               </Link>
-              <Button
-                variant="ghost"
-                onClick={() => setIsLoginOpen(true)}
-                className="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
-              >
-                Log in / Sign up
-              </Button>
+              {!user && (
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsLoginOpen(true)}
+                  className="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+                >
+                  Log in / Sign up
+                </Button>
+              )}
             </div>
           </div>
         )}
       </header>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      {!user && <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />}
     </>
   );
 };

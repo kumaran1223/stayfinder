@@ -14,7 +14,9 @@ const Index = () => {
       <Header />
       <HeroSection />
       <CategoryFilter />
-      <PropertyGrid />
+      <div id="property-grid">
+        <PropertyGrid />
+      </div>
       <FeaturedSection />
       <TestimonialSection />
       <Footer />

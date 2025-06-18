@@ -1,87 +1,76 @@
 
 import React from 'react';
-import { Star, MapPin, Calendar } from 'lucide-react';
 import { useSearch } from '@/hooks/useSearch';
 
 const FeaturedSection = () => {
-  const { setSearchQuery } = useSearch();
+  const { setSearchQuery, setActiveCategory } = useSearch();
 
   const destinations = [
     {
-      id: 1,
-      name: 'Goa',
-      image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&h=300&fit=crop',
-      distance: '2 hours away',
-      properties: '500+ stays'
+      name: "Goa",
+      description: "Tropical beaches and vibrant nightlife",
+      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      category: "beachfront"
     },
     {
-      id: 2,
-      name: 'Kerala',
-      image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=400&h=300&fit=crop',
-      distance: '4 hours away',
-      properties: '300+ stays'
+      name: "Kerala",
+      description: "Backwaters and hill stations",
+      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      category: "countryside"
     },
     {
-      id: 3,
-      name: 'Himachal Pradesh',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-      distance: '6 hours away',
-      properties: '200+ stays'
+      name: "Rajasthan",
+      description: "Royal palaces and desert adventures",
+      image: "https://images.unsplash.com/photo-1599661046827-dacde2a11954?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      category: "luxury"
     },
     {
-      id: 4,
-      name: 'Rajasthan',
-      image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=400&h=300&fit=crop',
-      distance: '8 hours away',
-      properties: '400+ stays'
+      name: "Himachal Pradesh",
+      description: "Snow-capped mountains and valleys",
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      category: "mountains"
     }
   ];
 
-  const handleDestinationClick = (destinationName: string) => {
-    setSearchQuery(destinationName);
-    console.log('Exploring destination:', destinationName);
-    // You can add navigation logic here
+  const handleDestinationClick = (destination: any) => {
+    setSearchQuery(destination.name);
+    setActiveCategory(destination.category);
+    // Scroll to property grid
+    const propertyGrid = document.querySelector('#property-grid');
+    if (propertyGrid) {
+      propertyGrid.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Explore nearby destinations</h2>
-          <p className="text-lg text-gray-600">Plan your next adventure with ease</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Explore nearby destinations
+          </h2>
+          <p className="text-lg text-gray-600">
+            Discover amazing places close to you
+          </p>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {destinations.map((destination) => (
-            <div 
-              key={destination.id}
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {destinations.map((destination, index) => (
+            <div
+              key={index}
+              onClick={() => handleDestinationClick(destination)}
               className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
-              onClick={() => handleDestinationClick(destination.name)}
             >
-              <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <img 
+              <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-lg font-semibold mb-1">{destination.name}</h3>
-                  <div className="flex items-center space-x-1 text-sm opacity-90">
-                    <MapPin className="h-3 w-3" />
-                    <span>{destination.distance}</span>
-                  </div>
-                  <div className="flex items-center space-x-1 text-sm opacity-90">
-                    <Calendar className="h-3 w-3" />
-                    <span>{destination.properties}</span>
-                  </div>
-                </div>
-                
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="bg-white text-gray-900 px-4 py-2 rounded-full font-semibold shadow-lg">
-                    Explore {destination.name}
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-xl font-bold mb-2">{destination.name}</h3>
+                  <p className="text-sm opacity-90">{destination.description}</p>
                 </div>
               </div>
             </div>
