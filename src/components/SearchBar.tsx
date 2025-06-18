@@ -86,13 +86,13 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto" ref={searchRef}>
-      <div className="bg-white rounded-2xl shadow-xl p-2">
+    <div className="relative w-full max-w-3xl mx-auto" ref={searchRef}>
+      <div className="bg-white rounded-xl shadow-lg p-2 transform transition-all duration-300 hover:shadow-2xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
           {/* Where */}
-          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200">
+          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
             <div className="flex items-center space-x-3">
-              <MapPin className="h-5 w-5 text-gray-400" />
+              <MapPin className="h-4 w-4 text-gray-400" />
               <div className="flex-1">
                 <div className="text-xs font-semibold text-gray-800">Where</div>
                 <input
@@ -108,11 +108,11 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Check in */}
-          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200">
+          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
             <Popover>
               <PopoverTrigger asChild>
                 <div className="flex items-center space-x-3 cursor-pointer">
-                  <Calendar className="h-5 w-5 text-gray-400" />
+                  <Calendar className="h-4 w-4 text-gray-400" />
                   <div>
                     <div className="text-xs font-semibold text-gray-800">Check in</div>
                     <div className="text-sm text-gray-700">
@@ -135,11 +135,11 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Check out */}
-          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200">
+          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
             <Popover>
               <PopoverTrigger asChild>
                 <div className="flex items-center space-x-3 cursor-pointer">
-                  <Calendar className="h-5 w-5 text-gray-400" />
+                  <Calendar className="h-4 w-4 text-gray-400" />
                   <div>
                     <div className="text-xs font-semibold text-gray-800">Check out</div>
                     <div className="text-sm text-gray-700">
@@ -162,13 +162,13 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Guests */}
-          <div className="p-4 rounded-xl hover:bg-gray-50 cursor-pointer" ref={guestRef}>
+          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:scale-105" ref={guestRef}>
             <div className="flex items-center justify-between">
               <div 
                 className="flex items-center space-x-3 flex-1"
                 onClick={() => setShowGuestSelector(!showGuestSelector)}
               >
-                <Users className="h-5 w-5 text-gray-400" />
+                <Users className="h-4 w-4 text-gray-400" />
                 <div>
                   <div className="text-xs font-semibold text-gray-800">Who</div>
                   <div className="text-sm text-gray-700">
@@ -178,15 +178,15 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
               </div>
               <Button
                 onClick={handleSearch}
-                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full p-3 ml-2"
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full p-2 ml-2 transform transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-4 w-4" />
               </Button>
             </div>
             
             {/* Guest Selector Dropdown */}
             {showGuestSelector && (
-              <div className="absolute top-full right-0 bg-white border rounded-lg shadow-lg mt-2 p-4 z-50 w-64">
+              <div className="absolute top-full right-0 bg-white border rounded-lg shadow-xl mt-2 p-4 z-50 w-56 transform transition-all duration-300 animate-in slide-in-from-top-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Guests</span>
                   <div className="flex items-center space-x-3">
@@ -195,9 +195,9 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
                       size="sm"
                       onClick={() => adjustGuestCount(false)}
                       disabled={guestCount <= 1}
-                      className="h-8 w-8 p-0"
+                      className="h-8 w-8 p-0 rounded-full hover:scale-110 transition-transform"
                     >
-                      <Minus className="h-4 w-4" />
+                      <Minus className="h-3 w-3" />
                     </Button>
                     <span className="text-sm font-medium w-8 text-center">{guestCount}</span>
                     <Button
@@ -205,9 +205,9 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
                       size="sm"
                       onClick={() => adjustGuestCount(true)}
                       disabled={guestCount >= 7}
-                      className="h-8 w-8 p-0"
+                      className="h-8 w-8 p-0 rounded-full hover:scale-110 transition-transform"
                     >
-                      <Plus className="h-4 w-4" />
+                      <Plus className="h-3 w-3" />
                     </Button>
                   </div>
                 </div>
@@ -219,12 +219,12 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
       </div>
 
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 bg-white border rounded-lg shadow-lg mt-2 z-50">
+        <div className="absolute top-full left-0 right-0 bg-white border rounded-lg shadow-xl mt-2 z-50 animate-in slide-in-from-top-2">
           {suggestions.map((suggestion, index) => (
             <button
               key={index}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="w-full text-left px-6 py-3 hover:bg-gray-50 flex items-center space-x-3 border-b last:border-b-0"
+              className="w-full text-left px-6 py-3 hover:bg-gray-50 flex items-center space-x-3 border-b last:border-b-0 transition-all duration-200 hover:scale-[1.02] hover:shadow-sm"
             >
               <MapPin className="h-4 w-4 text-gray-400" />
               <span className="text-sm">{suggestion}</span>
