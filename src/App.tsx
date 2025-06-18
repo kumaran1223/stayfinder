@@ -9,6 +9,8 @@ import { SearchProvider } from "@/hooks/useSearch";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Host from "./pages/Host";
+import Settings from "./pages/Settings";
+import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,11 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/host" element={<Host />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/contact" element={<Support />} />
+              <Route path="/search" element={<Index />} />
+              <Route path="/about" element={<Index />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

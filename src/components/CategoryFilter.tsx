@@ -23,7 +23,7 @@ const CategoryFilter = () => {
   };
 
   return (
-    <div className="border-b bg-white sticky top-32 md:top-40 z-40">
+    <div className="bg-white sticky top-16 z-40 border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center space-x-8 py-4 overflow-x-auto scrollbar-hide">
           {categories.map((category) => {
@@ -32,9 +32,9 @@ const CategoryFilter = () => {
               <button
                 key={category.id}
                 onClick={() => handleCategoryClick(category.id)}
-                className={`flex flex-col items-center space-y-2 min-w-max pb-2 border-b-2 transition-colors hover:text-gray-900 ${
+                className={`flex flex-col items-center space-y-2 min-w-max pb-2 border-b-2 transition-all hover:text-gray-900 hover:border-gray-300 ${
                   activeCategory === category.id
-                    ? 'border-gray-900 text-gray-900'
+                    ? 'border-red-500 text-red-500'
                     : 'border-transparent text-gray-600'
                 }`}
               >

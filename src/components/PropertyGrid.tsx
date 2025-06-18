@@ -39,11 +39,11 @@ const PropertyGrid = () => {
     },
     {
       id: "4",
-      title: "Royal Palace Stay in Udaipur",
-      location: "Udaipur, Rajasthan",
+      title: "Historic Haveli in Jaipur",
+      location: "Jaipur, Rajasthan",
       price: 15000,
       rating: 4.9,
-      images: ["https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
       category: "luxury",
       hostType: "Superhost"
     },
@@ -63,7 +63,7 @@ const PropertyGrid = () => {
       location: "Jaisalmer, Rajasthan",
       price: 4500,
       rating: 4.8,
-      images: ["https://images.unsplash.com/photo-1539650116574-75c0c6d57d45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      images: ["https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
       category: "camping",
       hostType: "Guest favourite"
     },
@@ -89,11 +89,11 @@ const PropertyGrid = () => {
     },
     {
       id: "9",
-      title: "Historic Haveli in Jaipur",
-      location: "Jaipur, Rajasthan",
-      price: 8000,
-      rating: 4.8,
-      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      title: "Royal Palace Stay in Udaipur",
+      location: "Udaipur, Rajasthan",
+      price: 18000,
+      rating: 4.9,
+      images: ["https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
       category: "luxury",
       hostType: "Superhost"
     },
@@ -126,6 +126,47 @@ const PropertyGrid = () => {
       images: ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
       category: "city",
       hostType: "Guest favourite"
+    },
+    // Adding trending properties
+    {
+      id: "13",
+      title: "Cozy Beach House in Gokarna",
+      location: "Gokarna, Karnataka",
+      price: 5200,
+      rating: 4.8,
+      images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      category: "trending",
+      hostType: "Superhost"
+    },
+    {
+      id: "14",
+      title: "Hill Station Villa in Ooty",
+      location: "Ooty, Tamil Nadu",
+      price: 7800,
+      rating: 4.7,
+      images: ["https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      category: "trending",
+      hostType: "Guest favourite"
+    },
+    {
+      id: "15",
+      title: "Lakefront Resort in Nainital",
+      location: "Nainital, Uttarakhand",
+      price: 8900,
+      rating: 4.9,
+      images: ["https://images.unsplash.com/photo-1504893524553-b855bce32c67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      category: "trending",
+      hostType: "Superhost"
+    },
+    {
+      id: "16",
+      title: "Forest Retreat in Coorg",
+      location: "Coorg, Karnataka",
+      price: 6800,
+      rating: 4.8,
+      images: ["https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],
+      category: "trending",
+      hostType: "Guest favourite"
     }
   ];
 
@@ -156,6 +197,7 @@ const PropertyGrid = () => {
       {filteredProperties.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">No properties found matching your search criteria.</p>
+          <p className="text-gray-400 text-sm mt-2">Try adjusting your filters or search terms.</p>
         </div>
       )}
     </div>

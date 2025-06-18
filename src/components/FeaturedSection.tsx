@@ -1,83 +1,131 @@
 
 import React from 'react';
-import { useSearch } from '@/hooks/useSearch';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Star } from 'lucide-react';
 
 const FeaturedSection = () => {
-  const { setSearchQuery, setActiveCategory } = useSearch();
-
-  const destinations = [
+  const featuredProperties = [
     {
-      name: "Goa",
-      description: "Tropical beaches and vibrant nightlife",
-      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "beachfront"
+      id: 1,
+      title: "Modern Loft in Downtown",
+      location: "New York, NY",
+      rating: 4.8,
+      reviews: 124,
+      price: 120,
+      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      badge: "Apartment",
+      guests: 4,
+      beds: 2,
+      baths: 2
     },
     {
-      name: "Kerala",
-      description: "Backwaters and hill stations",
-      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "countryside"
+      id: 2,
+      title: "Cozy Beach House",
+      location: "Malibu, CA",
+      rating: 4.9,
+      reviews: 89,
+      price: 280,
+      image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      badge: "House",
+      guests: 8,
+      beds: 4,
+      baths: 3
     },
     {
-      name: "Rajasthan",
-      description: "Royal palaces and desert adventures",
-      image: "https://images.unsplash.com/photo-1599661046827-dacde2a11954?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "luxury"
-    },
-    {
-      name: "Himachal Pradesh",
-      description: "Snow-capped mountains and valleys",
+      id: 3,
+      title: "Luxury Villa with Pool",
+      location: "Miami, FL",
+      rating: 5.0,
+      reviews: 67,
+      price: 450,
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      category: "mountains"
+      badge: "Villa",
+      guests: 10,
+      beds: 5,
+      baths: 4
+    },
+    {
+      id: 4,
+      title: "Mountain Cabin Retreat",
+      location: "Aspen, CO",
+      rating: 4.7,
+      reviews: 156,
+      price: 200,
+      image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      badge: "Cabin",
+      guests: 6,
+      beds: 3,
+      baths: 2
     }
   ];
 
-  const handleDestinationClick = (destination: any) => {
-    setSearchQuery(destination.name);
-    setActiveCategory(destination.category);
-    // Scroll to property grid
-    const propertyGrid = document.querySelector('#property-grid');
-    if (propertyGrid) {
-      propertyGrid.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <div className="bg-gray-50 py-16">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Explore nearby destinations
-          </h2>
-          <p className="text-lg text-gray-600">
-            Discover amazing places close to you
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Properties</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Discover our handpicked selection of exceptional stays, each offering unique experiences and outstanding hospitality.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {destinations.map((destination, index) => (
-            <div
-              key={index}
-              onClick={() => handleDestinationClick(destination)}
-              className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
-            >
-              <div className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {featuredProperties.map((property) => (
+            <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="relative">
                 <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                  src={property.image}
+                  alt={property.title}
+                  className="w-full h-48 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-xl font-bold mb-2">{destination.name}</h3>
-                  <p className="text-sm opacity-90">{destination.description}</p>
+                <div className="absolute top-3 left-3">
+                  <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    {property.badge}
+                  </span>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute top-3 right-3 p-2 hover:bg-white/20"
+                >
+                  <span className="text-white text-lg">♡</span>
+                </Button>
               </div>
-            </div>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold text-gray-900 text-sm truncate">{property.title}</h3>
+                  <div className="flex items-center space-x-1">
+                    <Star className="h-4 w-4 fill-current text-yellow-400" />
+                    <span className="text-sm font-medium">{property.rating}</span>
+                    <span className="text-xs text-gray-500">({property.reviews})</span>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-3">{property.location}</p>
+                <div className="flex justify-between items-center text-xs text-gray-500 mb-3">
+                  <span>{property.guests} guests</span>
+                  <span>{property.beds} beds</span>
+                  <span>{property.baths} baths</span>
+                </div>
+                <div className="flex items-baseline space-x-1">
+                  <span className="font-semibold text-gray-900">${property.price}</span>
+                  <span className="text-gray-600 text-sm">/night</span>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
+
+        <div className="text-center">
+          <Button 
+            variant="outline" 
+            className="border-red-500 text-red-500 hover:bg-red-50"
+          >
+            View All Properties
+          </Button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
