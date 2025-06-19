@@ -103,7 +103,7 @@
   }
 }
 
-/* Custom 3D animations */
+/* Enhanced 3D animations and effects */
 @layer utilities {
   .rotateY-12 {
     transform: rotateY(12deg);
@@ -115,5 +115,36 @@
   
   .backface-hidden {
     backface-visibility: hidden;
+  }
+
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .shadow-4xl {
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .card-3d {
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.3s ease;
+  }
+
+  .card-3d:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-5px);
   }
 }
