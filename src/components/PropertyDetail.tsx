@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { X, Star, Heart, Share, MapPin, Wifi, Car, Coffee, Users, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,11 +8,11 @@ import { format } from 'date-fns';
 
 interface PropertyDetailProps {
   property: any;
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
 }
 
-const PropertyDetail = ({ property, isOpen, onClose }: PropertyDetailProps) => {
+const PropertyDetail = ({ property, isOpen = true, onClose }: PropertyDetailProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
@@ -21,7 +20,7 @@ const PropertyDetail = ({ property, isOpen, onClose }: PropertyDetailProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [showGuestSelector, setShowGuestSelector] = useState(false);
 
-  if (!isOpen || !property) return null;
+  if (!property) return null;
 
   const amenities = [
     { icon: Wifi, name: 'Free WiFi' },
@@ -126,11 +125,11 @@ const PropertyDetail = ({ property, isOpen, onClose }: PropertyDetailProps) => {
                   <div className="flex items-center space-x-6 text-gray-700">
                     <span className="flex items-center space-x-1">
                       <Users className="h-4 w-4" />
-                      <span>4 guests</span>
+                      <span>{property.guests || 4} guests</span>
                     </span>
-                    <span>1 bedroom</span>
+                    <span>{property.bedrooms || 1} bedroom</span>
                     <span>1 bed</span>
-                    <span>1 bathroom</span>
+                    <span>{property.bathrooms || 1} bathroom</span>
                   </div>
                 </div>
 
@@ -151,9 +150,7 @@ const PropertyDetail = ({ property, isOpen, onClose }: PropertyDetailProps) => {
                 <div className="bg-white border rounded-xl p-6">
                   <h3 className="font-semibold text-xl mb-3">About this place</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Welcome to a cozy, boho-inspired studio retreat! Soft beige tones and airy design create 
-                    a calm atmosphere. Enjoy serene hill views, a comfy sofa for relaxing, and a compact 
-                    kitchen for easy meals. Perfect getaway place, well connected with city and tourist attractions.
+                    {property.description || 'Welcome to a cozy, boho-inspired studio retreat! Soft beige tones and airy design create a calm atmosphere. Enjoy serene hill views, a comfy sofa for relaxing, and a compact kitchen for easy meals. Perfect getaway place, well connected with city and tourist attractions.'}
                   </p>
                 </div>
               </div>
@@ -222,21 +219,21 @@ const PropertyDetail = ({ property, isOpen, onClose }: PropertyDetailProps) => {
                       </Popover>
                     </div>
 
-                    {/* Fixed Guest Selector */}
+                    {/* Fixed Guest Selector - Properly Aligned */}
                     <div className="relative">
                       <Popover open={showGuestSelector} onOpenChange={setShowGuestSelector}>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className="w-full justify-between text-left font-normal h-14 hover:border-red-300 focus:border-red-500"
+                            className="w-full justify-between text-left font-normal h-14 hover:border-red-300 focus:border-red-500 px-4"
                           >
-                            <div>
+                            <div className="flex flex-col items-start">
                               <div className="text-xs text-gray-500 font-semibold">GUESTS</div>
                               <div className="text-sm font-medium">
                                 {guests} guest{guests > 1 ? 's' : ''}
                               </div>
                             </div>
-                            <ChevronDown className="h-4 w-4 text-gray-400" />
+                            <ChevronDown className="h-4 w-4 text-gray-400 flex-shrink-0" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-4" align="start">
