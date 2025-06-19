@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X, Star, Heart, Share, MapPin, Wifi, Car, Coffee, Users, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -42,6 +43,14 @@ const PropertyDetail = ({ property, isOpen = true, onClose }: PropertyDetailProp
     }
     alert(`Booking confirmed for ${property.title}!\nCheck-in: ${format(checkIn, 'PPP')}\nCheck-out: ${format(checkOut, 'PPP')}\nGuests: ${guests}\nTotal: ₹${calculateTotal().toLocaleString()}`);
   };
+
+  // Prevent body scroll when modal is open
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-60 overflow-y-auto backdrop-blur-sm">
@@ -133,7 +142,6 @@ const PropertyDetail = ({ property, isOpen = true, onClose }: PropertyDetailProp
                   </div>
                 </div>
 
-                {/* Enhanced Amenities */}
                 <div>
                   <h3 className="font-semibold text-xl mb-4">What this place offers</h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -146,7 +154,6 @@ const PropertyDetail = ({ property, isOpen = true, onClose }: PropertyDetailProp
                   </div>
                 </div>
 
-                {/* Enhanced Description */}
                 <div className="bg-white border rounded-xl p-6">
                   <h3 className="font-semibold text-xl mb-3">About this place</h3>
                   <p className="text-gray-600 leading-relaxed">
