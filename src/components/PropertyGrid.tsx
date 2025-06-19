@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useSearch } from '@/hooks/useSearch';
 import PropertyCard from './PropertyCard';
@@ -572,7 +571,7 @@ const PropertyGrid = () => {
       category: 'luxury',
       hostType: 'Guest favourite',
       description: 'Restored royal haveli with authentic architecture.',
-      amen/*rest of property data*/ities: ['Royal Heritage', 'Cultural Shows', 'Fine Dining', 'Spa'],
+      amenities: ['Royal Heritage', 'Cultural Shows', 'Fine Dining', 'Spa'],
       guests: 12,
       bedrooms: 6,
       bathrooms: 5
