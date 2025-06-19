@@ -86,15 +86,15 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
   };
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto" ref={searchRef}>
-      <div className="bg-white rounded-xl shadow-lg p-2 transform transition-all duration-300 hover:shadow-2xl">
+    <div className="relative w-full max-w-4xl mx-auto" ref={searchRef}>
+      <div className="bg-white rounded-xl shadow-lg p-2 transform transition-all duration-300 hover:shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
           {/* Where */}
-          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
+          <div className="p-4 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200">
             <div className="flex items-center space-x-3">
-              <MapPin className="h-4 w-4 text-gray-400" />
+              <MapPin className="h-5 w-5 text-gray-400" />
               <div className="flex-1">
-                <div className="text-xs font-semibold text-gray-800">Where</div>
+                <div className="text-xs font-semibold text-gray-800 mb-1">Where</div>
                 <input
                   type="text"
                   placeholder="Search destinations"
@@ -108,13 +108,13 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Check in */}
-          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
+          <div className="p-4 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200">
             <Popover>
               <PopoverTrigger asChild>
                 <div className="flex items-center space-x-3 cursor-pointer">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+                  <Calendar className="h-5 w-5 text-gray-400" />
                   <div>
-                    <div className="text-xs font-semibold text-gray-800">Check in</div>
+                    <div className="text-xs font-semibold text-gray-800 mb-1">Check in</div>
                     <div className="text-sm text-gray-700">
                       {checkInDate ? format(checkInDate, "MMM dd") : "Add dates"}
                     </div>
@@ -135,13 +135,13 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Check out */}
-          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200 hover:scale-105">
+          <div className="p-4 rounded-lg hover:bg-gray-50 cursor-pointer border-r md:border-r-gray-200 transition-all duration-200">
             <Popover>
               <PopoverTrigger asChild>
                 <div className="flex items-center space-x-3 cursor-pointer">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+                  <Calendar className="h-5 w-5 text-gray-400" />
                   <div>
-                    <div className="text-xs font-semibold text-gray-800">Check out</div>
+                    <div className="text-xs font-semibold text-gray-800 mb-1">Check out</div>
                     <div className="text-sm text-gray-700">
                       {checkOutDate ? format(checkOutDate, "MMM dd") : "Add dates"}
                     </div>
@@ -162,15 +162,15 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
           </div>
 
           {/* Guests */}
-          <div className="p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:scale-105" ref={guestRef}>
+          <div className="p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200" ref={guestRef}>
             <div className="flex items-center justify-between">
               <div 
                 className="flex items-center space-x-3 flex-1"
                 onClick={() => setShowGuestSelector(!showGuestSelector)}
               >
-                <Users className="h-4 w-4 text-gray-400" />
+                <Users className="h-5 w-5 text-gray-400" />
                 <div>
-                  <div className="text-xs font-semibold text-gray-800">Who</div>
+                  <div className="text-xs font-semibold text-gray-800 mb-1">Who</div>
                   <div className="text-sm text-gray-700">
                     {guestCount} {guestCount === 1 ? 'guest' : 'guests'}
                   </div>
@@ -178,9 +178,9 @@ const SearchBar = ({ isMobile = false }: { isMobile?: boolean }) => {
               </div>
               <Button
                 onClick={handleSearch}
-                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full p-2 ml-2 transform transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-full p-3 ml-3 transform transition-all duration-200 hover:scale-110 shadow-lg hover:shadow-xl"
               >
-                <Search className="h-4 w-4" />
+                <Search className="h-5 w-5" />
               </Button>
             </div>
             
