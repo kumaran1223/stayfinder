@@ -3,11 +3,13 @@ import { useSearch } from '@/hooks/useSearch';
 import PropertyCard from './PropertyCard';
 import PropertyDetail from './PropertyDetail';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const PropertyGrid = () => {
   const { activeCategory } = useSearch();
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const [showAllProperties, setShowAllProperties] = useState(false);
+  const navigate = useNavigate();
 
   const allProperties = [
     {
@@ -37,7 +39,7 @@ const PropertyGrid = () => {
       rating: 4.5,
       images: [
         'https://images.unsplash.com/photo-1532339142463-fd0a8979791a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        'https://images.unsplash.com/photo-1549144511-f099e773c147?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+        'https://images.unsplash.com/photo-1549144511-f099e773c147?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
       ],
       category: 'mountains',
       hostType: 'Super host',
@@ -406,7 +408,6 @@ const PropertyGrid = () => {
 
   const handlePropertyClick = (property: any) => {
     setSelectedProperty(property);
-    // Prevent auto-scroll by not scrolling to any element
   };
 
   const handleCloseDetail = () => {
@@ -415,6 +416,10 @@ const PropertyGrid = () => {
 
   const handleShowMore = () => {
     setShowAllProperties(true);
+  };
+
+  const handleFamousPlaces = () => {
+    navigate('/famous-places');
   };
 
   if (selectedProperty) {
@@ -463,12 +468,19 @@ const PropertyGrid = () => {
             </div>
 
             {!showAllProperties && remainingCount > 0 && (
-              <div className="text-center mt-12">
+              <div className="text-center mt-12 space-y-4">
                 <Button
                   onClick={handleShowMore}
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 mr-4"
                 >
-                  Explore All {remainingCount}+ Properties
+                  Explore All 100+ Properties
+                </Button>
+                <Button
+                  onClick={handleFamousPlaces}
+                  variant="outline"
+                  className="border-red-500 text-red-500 hover:bg-red-50 font-semibold px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                >
+                  Famous Places to Explore
                 </Button>
               </div>
             )}
