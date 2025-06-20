@@ -55,7 +55,7 @@ const Footer = () => {
                 </div>
                 <span className="text-lg font-bold text-gray-900">StayFinder</span>
               </div>
-              <span className="text-gray-600 text-sm">© 2024 StayFinder, Inc.</span>
+              <span className="text-gray-600 text-sm">© 2025 StayFinder, Inc.</span>
             </div>
 
             <div className="flex items-center space-x-6">
