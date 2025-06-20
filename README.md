@@ -7,8 +7,7 @@ StayFinder is a modern, responsive web application that connects travelers with 
 
 ## 🌐 Live Preview
 
-> **Coming Soon**: [Your Live Deployment Link Here]  
-> Or deploy easily using [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/).
+> https://stayfinder1.netlify.app/ 
 
 
 ## Technologies Used
