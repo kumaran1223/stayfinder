@@ -10,7 +10,7 @@ const Footer = () => {
     },
     {
       title: 'Community',
-      links: ['StayFinder.org: disaster relief housing', 'Support Afghan refugees', 'Combating discrimination']
+      links: ['StayFinder.org: disaster relief housing']
     },
     {
       title: 'Hosting',
