@@ -5,6 +5,12 @@
 
 StayFinder is a modern, responsive web application that connects travelers with unique accommodation experiences across India and beyond. Built with cutting-edge technologies, it offers a seamless platform for discovering, booking, and managing stays ranging from luxury resorts to cozy countryside retreats.
 
+## 🌐 Live Preview
+
+> **Coming Soon**: [Your Live Deployment Link Here]  
+> Or deploy easily using [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/).
+
+
 ## Technologies Used
 
 ### Frontend Technologies
@@ -166,18 +172,13 @@ StayFinder revolutionizes the way people discover and book accommodations by pro
 - [ ] **Long-term Stay Options** - Monthly and yearly rental accommodations
 - [ ] **Experience Marketplace** - Local tours and activity bookings
 
-## Contributing
-
-We welcome contributions from the community! Please read our contributing guidelines and submit pull requests for any improvements.
 
 ## License
 
 This project is proprietary software. All rights reserved.
 
-## Support
+## Final Notes
 
-For technical support and inquiries, please contact our development team or visit our support page.
+StayFinder combines aesthetics with functionality. Whether you're a traveler looking for your next getaway or a host ready to welcome guests, this platform is built to serve both ends with elegance and ease.
 
----
 
-Built with ❤️ by the StayFinder Team
